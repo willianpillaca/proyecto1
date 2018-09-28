@@ -19,11 +19,7 @@ CursosAlumnoManager={
       				}
       				,success:function(result){      					
       					var response=Ext.decode(result.responseText);
-      					console.log('response');
-      					console.log(response);
-      					console.log(result);
-      					console.log(response.data[0]);
-      					console.log(response.data[0].descripcion);
+      					console.log('willian->>>');
       					var a1 = response.data[0].alternativa1;
       					var a2 = response.data[0].alternativa2;
       					var a3 = response.data[0].alternativa3;
