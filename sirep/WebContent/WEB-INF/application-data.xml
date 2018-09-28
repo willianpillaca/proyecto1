@@ -25,7 +25,7 @@
 <!-- 		</property> -->
 <!-- 	</bean>  -->
 
-<!-- PRODUCCION -->
+<!-- PRODUCCION GINNET -->
 <!-- 		    <bean id="sirepDs" class="org.apache.commons.dbcp.BasicDataSource"	destroy-method="close"> -->
 <!-- 				<property name="url"> -->
 <!-- 					<value>jdbc:mysql://localhost:3306/ginnet</value> -->
