@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <b:beans 
+  	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+ 
+ <security:global-method-security secured-annotations="enabled" />
+ 
+<b:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+<b:bean id="defaultAuthEventPublisher" class="org.springframework.security.authentication.DefaultAuthenticationEventPublisher"/>
+
+<!-- standar -->
+<b:bean id="authenticationProcessingFilterForStandar" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+    <b:property name="authenticationManager" ref="authenticationManagerForStandar"/>
+    <b:property name="filterProcessesUrl" value="/j_security_check_for_standar"/>
+    <b:property name="authenticationFailureHandler" ref="failureHandlerStandar" />
+    <b:property name="authenticationSuccessHandler" ref="successHandlerStandar" />
+</b:bean>
+
+ <b:bean id="successHandlerStandar"
+        class="pe.gob.ep.ginnet.filter.CustomAuthenticationSuccessHandler">
+        	<b:property name="alwaysUseDefaultTargetUrl" value="false"/>	
+            <b:property name="defaultTargetUrl" value="/main.app" />
+            <b:property name="targetUrlParameter" value="redirectUrl"/>
+    </b:bean>
+
+    <b:bean id="failureHandlerStandar"
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <b:property name="defaultFailureUrl" value="/login.app" />
+    </b:bean>
+    
+<b:bean id="authenticationManagerForStandar" class="org.springframework.security.authentication.ProviderManager">
+	<b:property name="authenticationEventPublisher" ref="defaultAuthEventPublisher"/>
+    <b:property name="providers">
+        <b:list>
+        	<b:ref bean="standarAuthentificationProvider"/>
+        </b:list>
+    </b:property>
+</b:bean>
+         
+<b:bean id="standarAuthentificationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+                <b:property name="userDetailsService">
+                    <b:ref bean="securityService" />
+                </b:property>
+                <b:property name="passwordEncoder" ref="passwordEncoder" />
+            </b:bean>
+            
+<b:bean id="logoutFilterStandar" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+			<b:constructor-arg value="/login.app" index="0" />
+			<b:constructor-arg ref="logoutHandlerStandar" index="1" />
+			<b:property name="filterProcessesUrl" value="/j_spring_logout_standar" />
+	</b:bean>
+	
+	<b:bean id="logoutHandlerStandar" class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler">
+        <b:property name="invalidateHttpSession" value="true"/>
+    </b:bean>
+     
+ <b:bean id="commonAccessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+      <b:property name="errorPage" value="/error403.jsp" />
+    </b:bean>
+ 
+ <!-- This is where we configure Spring-Security  -->
+ <security:http auto-config="true" use-expressions="true" >
+ 	
+ 	<security:form-login login-page="/inicio.app" />
+ 	
+ 	<!-- actions free -->
+	<security:intercept-url pattern="/login.app" access="permitAll" />
+	<security:intercept-url pattern="/inicio.app" access="permitAll" />
+	<security:intercept-url pattern="/obtenerrolesbyusername.app" access="permitAll" />	
+	<security:intercept-url pattern="/findallcursos.app" access="permitAll" />
+	<security:intercept-url pattern="/testexamen.app" access="permitAll" />
+	<security:intercept-url pattern="/crearnuevousuario.app" access="permitAll" />
+	<security:intercept-url pattern="/ingresarusuario.app" access="permitAll" />
+	<security:intercept-url pattern="/cursosxalumno.app" access="permitAll" />
+	<security:intercept-url pattern="/pagarvisa.app" access="permitAll" />
+	<security:intercept-url pattern="/build" access="permitAll" />
+	
+	<!-- js and css -->
+	<security:intercept-url pattern="/librerias/**" access="permitAll" />	
+	<security:intercept-url pattern="/files/**" access="permitAll" />
+
+	 <security:intercept-url pattern="/**" access="denyAll" />
+	<security:intercept-url pattern="/**" access="isAuthenticated()" /> 
+	
+	 <!-- <security:intercept-url pattern="/**" access="permitAll" /> -->
+	
+ 	<security:custom-filter after="FORM_LOGIN_FILTER" ref="authenticationProcessingFilterForStandar" />
+	
+	<security:custom-filter after = "LOGOUT_FILTER" ref="logoutFilterStandar" />
+	<security:access-denied-handler error-page="/error403.jsp"/>
+
+		
+ </security:http>
+ 
+<security:authentication-manager 	alias="authenticationManager">
+    <security:authentication-provider ref="standarAuthentificationProvider" />
+</security:authentication-manager> 
+
+</b:beans>

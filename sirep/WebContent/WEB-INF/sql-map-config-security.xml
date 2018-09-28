@@ -1,0 +1,57 @@
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" lazyLoadingEnabled="true" enhancementEnabled="true" maxSessions="128" />
+		
+		<!-- Seguridad -->
+		<sqlMap resource="pe/gob/ep/ginnet/seguridad/dao/ibatis/maps/opcion.xml" />
+		<sqlMap resource="pe/gob/ep/ginnet/seguridad/dao/ibatis/maps/rol.xml" />
+		<sqlMap resource="pe/gob/ep/ginnet/seguridad/dao/ibatis/maps/rolxopcion.xml" />
+		<sqlMap resource="pe/gob/ep/ginnet/seguridad/dao/ibatis/maps/usuario.xml" />
+		<sqlMap resource="pe/gob/ep/ginnet/seguridad/dao/ibatis/maps/usuarioxrol.xml" />
+		<!-- Seguridad -->
+		
+		<!-- Catalogo -->		
+		<sqlMap resource="pe/gob/ep/ginnet/catalogo/dao/ibatis/maps/elementocatalogo.xml" />
+		
+		<!-- Catalogo -->
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/catalogo.xml" />
+		
+		<!-- Proyecto -->		
+		<sqlMap resource="pe/gob/ep/ginnet/ruedanegocio/dao/ibatis/maps/proyecto.xml" />
+		
+		<!-- Curso -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/curso.xml" />
+		
+		<!-- Profesor -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/profesor.xml" />
+		
+		<!-- Docente -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/docente.xml" />
+		
+		<!-- Pregunta -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/pregunta.xml" />		
+		
+		<!-- Pregunta -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/prueba.xml" />
+		
+		<!-- Alumno Curso -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/alumno_curso.xml" />
+		
+		<!-- Examen -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/examen.xml" />
+		
+		<!-- Alternativa -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/alternativa.xml" />
+		
+		<!-- Resultado -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/resultado.xml" />
+		
+		<!-- Tema -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/tema.xml" />
+		
+		<!-- Persona -->		
+		<sqlMap resource="pe/gob/ep/ginnet/radamanthys/dao/ibatis/maps/persona.xml" />	
+		
+</sqlMapConfig>

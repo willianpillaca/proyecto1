@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jee="http://www.springframework.org/schema/jee"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+  	
+  	
+<!--      <bean id="sirepDs" class="org.apache.commons.dbcp.BasicDataSource"	destroy-method="close"> -->
+<!-- 		<property name="url"> -->
+<!-- 			<value>jdbc:oracle:thin:@localhost:1521:xe</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="driverClassName"> -->
+<!-- 			<value>oracle.jdbc.OracleDriver</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="username"> -->
+<!-- 			<value>system</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="password"> -->
+<!-- 			<value>willian123</value> -->
+<!-- 		</property> -->
+<!-- 	</bean>  -->
+
+<!-- PRODUCCION -->
+<!-- 		    <bean id="sirepDs" class="org.apache.commons.dbcp.BasicDataSource"	destroy-method="close"> -->
+<!-- 				<property name="url"> -->
+<!-- 					<value>jdbc:mysql://localhost:3306/ginnet</value> -->
+<!-- 				</property> -->
+<!-- 				<property name="driverClassName"> -->
+<!-- 					<value>com.mysql.jdbc.Driver</value> -->
+<!-- 				</property> -->
+<!-- 				<property name="username"> -->
+<!-- 					<value>root</value> -->
+<!-- 				</property> -->
+<!-- 				<property name="password"> -->
+<!-- 					<value>Cu3rp005cur0</value> -->
+<!-- 				</property> -->
+<!-- 			</bean>  -->
+    
+<!--     DESARROLLO -->
+
+		<bean id="sirepDs" class="org.apache.commons.dbcp.BasicDataSource"	destroy-method="close">
+				<property name="url">
+					<value>jdbc:mysql://localhost:3306/kamus</value>
+				</property>
+				<property name="driverClassName">
+					<value>com.mysql.jdbc.Driver</value>
+				</property>
+				<property name="username">
+					<value>root</value>
+				</property>
+				<property name="password">
+					<value>123456</value>
+				</property>
+			</bean>
+ 
+	<bean id="sqlMapClientSirep" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/sql-map-config-security.xml" />
+		<property name="dataSource" ref="sirepDs" />
+	</bean> 
+ 	
+	<!-- Seguridad -->
+	<bean id="usuarioDAO" class="pe.gob.ep.ginnet.seguridad.dao.ibatis.UsuarioDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>	 
+ 	
+	<bean id="rolDAO" class="pe.gob.ep.ginnet.seguridad.dao.ibatis.RolDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>	 
+ 	
+	<bean id="opcionDAO" class="pe.gob.ep.ginnet.seguridad.dao.ibatis.OpcionDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>	
+ 	
+	<bean id="rolOpcionDAO" class="pe.gob.ep.ginnet.seguridad.dao.ibatis.RolOpcionDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>	
+ 	
+	<bean id="usuarioRolDAO" class="pe.gob.ep.ginnet.seguridad.dao.ibatis.UsuarioRolDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>	
+	<!-- Seguridad -->
+	
+	<!-- Catalogo -->	
+ 	
+	<bean id="elementoCatalogoDAO" class="pe.gob.ep.ginnet.catalogo.dao.ibatis.ElementoCatalogoDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>	
+	<!-- Catalogo -->
+	
+	<bean id="catalogoDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.CatalogoDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+	
+	<!-- 	 Proyecto -->
+	<bean id="proyectoDAO" class="pe.gob.ep.ginnet.ruedanegocio.dao.ibatis.ProyectoDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Curso -->
+	<bean id="cursoDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.CursoDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Profesor -->
+	<bean id="profesorDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.ProfesorDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Docente -->
+	<bean id="docenteDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.DocenteDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Pregunta -->
+	<bean id="preguntaDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.PreguntaDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+	
+	<!-- 	 Prueba -->
+	<bean id="pruebaDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.PruebaDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Alumno Curso -->
+	<bean id="alumnoCursoDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.AlumnoCursoDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Examen-->
+	<bean id="examenDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.ExamenDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Alternativa-->
+	<bean id="alternativaDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.AlternativaDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Resultado-->
+	<bean id="resultadoDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.ResultadoDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Resultado-->
+	<bean id="temaDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.TemaDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+ 	
+ 	<!-- 	 Persona-->
+ 	
+	<bean id="personaDAO" class="pe.gob.ep.ginnet.radamanthys.dao.ibatis.PersonaDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClientSirep" /> 
+ 	</bean>
+	
+</beans>
